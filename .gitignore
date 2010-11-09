@@ -1,0 +1,7 @@
+*.resharper.*
+*.suo
+_ReSharper*
+*.user
+*.[oa]
+/src/*/obj/
+/src/*/bin/
