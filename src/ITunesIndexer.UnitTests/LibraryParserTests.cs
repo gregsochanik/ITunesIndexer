@@ -22,7 +22,7 @@ namespace ITunesIndexer.UnitTests
         }
 
         [Test]
-        [Ignore("Pending - test fails due to Serialization issues with XElement")]
+        [Category("Integration")]
         public void Should_return_list_of_type_song()
         {
             const string pathToItunesLibrary = @"F:\Users\Greg\Music\iTunes\iTunes Music Library.xml";
@@ -40,6 +40,7 @@ namespace ITunesIndexer.UnitTests
         }
 
         [Test]
+        [Category("Integration")]
         public void Song_xml_should_validate_against_schema() {}
 
     }

@@ -1,4 +1,5 @@
-﻿using System.Xml.Linq;
+﻿using System.Xml;
+using System.Xml.Linq;
 using System.Xml.XPath;
 
 namespace ITunesIndexer
@@ -22,6 +23,16 @@ namespace ITunesIndexer
         public static IXPathNavigable ToNavigable(this XNode n)
         {
             return (new Navigable(n));
+        }
+
+        public static XmlDocument ToXmlDocument(this XNode n)
+        {
+            using (XmlReader xmlReader = n.CreateReader())
+            {
+                var xmlDoc = new XmlDocument();
+                xmlDoc.Load(xmlReader);
+                return xmlDoc;
+            }
         }
     }
 }

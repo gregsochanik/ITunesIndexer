@@ -20,7 +20,5 @@ namespace ITunesIndexer.Models
         public Int64 Size { get; set; }			
         public Int64 TotalTime { get; set; }	
         public int TrackNumber { get; set; }	
-
-
     }
 }
