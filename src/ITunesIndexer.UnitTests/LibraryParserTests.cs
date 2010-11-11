@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using ITunesIndexer.Models;
 using NUnit.Framework;
 
 namespace ITunesIndexer.UnitTests
@@ -12,7 +11,7 @@ namespace ITunesIndexer.UnitTests
         [Category("Integration")]
         public void Parsing_xml_should_produce_valid_list()
         {
-            const string pathToItunesLibrary = @"F:\Users\Greg\Music\iTunes\iTunes Music Library.xml";
+            string pathToItunesLibrary = ConfigSettings.PathToXml;
 
             IEnumerable<XElement> songs = new LibraryParser().ParseXml(pathToItunesLibrary);
 
@@ -20,28 +19,5 @@ namespace ITunesIndexer.UnitTests
             List<XElement> list = songs.ToList();
             Assert.IsNotEmpty(list);
         }
-
-        [Test]
-        [Category("Integration")]
-        public void Should_return_list_of_type_song()
-        {
-            const string pathToItunesLibrary = @"F:\Users\Greg\Music\iTunes\iTunes Music Library.xml";
-
-            IEnumerable<Song> songs = LibraryParser.GetLibraryAsSongs(pathToItunesLibrary);
-
-            Assert.IsNotNull(songs);
-            Assert.Greater(songs.Count(), 0);
-
-            var song = songs.First();
-
-            Assert.IsNotNull(song);
-
-            Assert.IsInstanceOfType(typeof(Song), song);
-        }
-
-        [Test]
-        [Category("Integration")]
-        public void Song_xml_should_validate_against_schema() {}
-
     }
 }

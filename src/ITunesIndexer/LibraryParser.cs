@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using ITunesIndexer.Models;
-using Sochanik.Framework.Xml;
 
 namespace ITunesIndexer
 {
@@ -26,12 +24,6 @@ namespace ITunesIndexer
             IEnumerable<XElement> songs = rawsongs.Where(song => song.Element("Location") != null);
 
             return songs;
-        }
-
-        public static IEnumerable<Song> GetLibraryAsSongs(string pathToXml)
-        {
-            IEnumerable<XElement> songs = new LibraryParser().ParseXml(pathToXml);
-            return songs.Select(xElement => SerializationHelper<Song>.Deserialize(xElement.ToXmlDocument()));
         }
     }
 }

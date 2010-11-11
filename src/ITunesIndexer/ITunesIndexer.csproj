@@ -43,10 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigSettings.cs" />
+    <Compile Include="ILibraryBuilder.cs" />
     <Compile Include="ILibraryParser.cs" />
+    <Compile Include="ISelector.cs" />
+    <Compile Include="LibraryBuilder.cs" />
     <Compile Include="LibraryParser.cs" />
     <Compile Include="Models\Song.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SongSelector.cs" />
     <Compile Include="XNodeExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
