@@ -61,6 +61,7 @@
     <Compile Include="SolrPosterTests.cs" />
     <Compile Include="SongSelectorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ITunesIndexer\ITunesIndexer.csproj">

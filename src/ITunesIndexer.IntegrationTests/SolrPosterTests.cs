@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using ITunesIndexer.Models;
+using NUnit.Framework;
 
 namespace ITunesIndexer.IntegrationTests
 {
@@ -7,7 +8,10 @@ namespace ITunesIndexer.IntegrationTests
         [Test]
         public void Item_is_added_to_solr_instance()
         {
-            Assert.Fail("Not Implemented yet");
+            Song song = TestData.SingleSong();
+            var httpPoster = new HttpPoster();
+            var solrPoster = new SolrPoster<Song>(httpPoster);
+            solrPoster.PostToSolr(song);
         }
     }
     

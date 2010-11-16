@@ -5,6 +5,7 @@ namespace ITunesIndexer
     public class ConfigSettings : BaseGlobalSettings
     {
         public static string PathToXml { get; set; }
+        public static string SolrUrl { get; set; }
 
         static ConfigSettings()
         {
@@ -14,6 +15,7 @@ namespace ITunesIndexer
         public override void BuildConfigFileSettings()
         {
             PathToXml = GetAppSetting("PathToXml");
+            SolrUrl = GetAppSetting("SolrUrl");
         }
 
         public override void BuildNonConfigFileSettings()

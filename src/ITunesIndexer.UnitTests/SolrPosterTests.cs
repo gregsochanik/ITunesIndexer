@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Specialized;
 using ITunesIndexer.Models;
 using log4net;
 using NUnit.Framework;
@@ -12,7 +13,8 @@ namespace ITunesIndexer.UnitTests
         public void Posting_file_should_log_info_if_success()
         {
             var log = MockRepository.GenerateStub<ILog>();
-            var xmlPoster = MockRepository.GenerateStub<IXmlPoster>();
+            var xmlPoster = MockRepository.GenerateStub<IHttpPoster>();
+            xmlPoster.Stub(x => x.Post(Arg<Uri>.Is.Anything, Arg<string>.Is.Anything)).Return("Post Added");
             var solrPoster = new SolrPoster<Song>(log, xmlPoster);
             solrPoster.PostToSolr(new Song());
             log.AssertWasCalled(x => x.Info("Post Added"));
@@ -22,12 +24,13 @@ namespace ITunesIndexer.UnitTests
         public void Posting_file_should_log_error_if_exception()
         {
             var log = MockRepository.GenerateStub<ILog>();
-            var xmlPoster = MockRepository.GenerateStub<IXmlPoster>();
-            xmlPoster.Stub(x => x.PostXml(Arg<string>.Is.Anything, Arg<Uri>.Is.Anything)).Throw(new Exception());
+            var xmlPoster = MockRepository.GenerateStub<IHttpPoster>();
+            xmlPoster.Stub(x => x.Post(Arg<Uri>.Is.Anything, Arg<string>.Is.Anything)).Throw(new Exception());
 
             var solrPoster = new SolrPoster<Song>(log, xmlPoster);
             solrPoster.PostToSolr(new Song());
             log.AssertWasCalled(x => x.Error("There was an error"));
         }
     }
+
 }
