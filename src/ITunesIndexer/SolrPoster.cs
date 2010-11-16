@@ -13,7 +13,7 @@ namespace ITunesIndexer
 
     public class SolrPoster<T> : ISolrPoster<T> where T : class
     {
-        private readonly ILog _logger;
+        private readonly ILog _logger = LogManager.GetLogger(typeof(SolrPoster<T>));
         private readonly IXmlPoster _xmlPoster;
 
         public SolrPoster(ILog logger, IXmlPoster xmlPoster)
@@ -31,7 +31,7 @@ namespace ITunesIndexer
             try
             {
                 // post song xml to solr
-                _xmlPoster.PostXml(xmlToPost);
+                _xmlPoster.PostXml(xmlToPost, new Uri("test"));
                 _logger.Info("Post Added");
             } 
             catch (Exception ex)
@@ -43,7 +43,7 @@ namespace ITunesIndexer
 
     public class XmlPoster : IXmlPoster
     {
-        public void PostXml(string xml)
+        public void PostXml(string xml, Uri location)
         {
             // create http post
         }
@@ -51,7 +51,7 @@ namespace ITunesIndexer
 
     public interface IXmlPoster
     {
-        void PostXml(string xml);
+        void PostXml(string xml, Uri location);
     }
 
     

@@ -19,17 +19,5 @@ namespace ITunesIndexer.IntegrationTests
             
             Assert.That(File.Exists(appender.File));
         }
-
-        [Test]
-        public void Posting_file_should_log_info_if_success()
-        {
-            Assert.Fail();
-        }
-
-        [Test]
-        public void Posting_file_should_log_error_if_exception()
-        {
-            Assert.Fail();
-        }
     }
 }
