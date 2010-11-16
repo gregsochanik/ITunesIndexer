@@ -5,12 +5,6 @@ namespace ITunesIndexer.UnitTests
     public class SolrPosterTests
     {
         [Test]
-        public void Item_can_convert_to_vald_xml()
-        {
-            Assert.Fail("Not Implemented yet");
-        }
-
-        [Test]
         public void Can_creat_http_post_of_item()
         {
             Assert.Fail("Not Implemented yet");
