@@ -41,8 +41,6 @@ namespace ITunesIndexer
         }
     }
 
-    
-
     public class XmlPoster : IXmlPoster
     {
         public void PostXml(string xml)
