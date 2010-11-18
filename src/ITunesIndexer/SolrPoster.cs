@@ -33,14 +33,13 @@ namespace ITunesIndexer
 
         public string PostToSolr(T item)
         {
-            // Convert Song to XMl
             var doc = SerializationHelper<T>.Serialize(item) as XmlDocument;
             string xmlToPost = doc.InnerXml;
             string response;
             try
             {
                 // post song xml to solr
-                response = _httpPoster.Post(new Uri(ConfigSettings.SolrUrl), xmlToPost);
+                response = _httpPoster.Post(new Uri(ConfigSettings.SolrUrl+@"/update"), xmlToPost);
                 _logger.Info("Post Added");
             } 
             catch (Exception ex)
@@ -64,20 +63,24 @@ namespace ITunesIndexer
             WebRequest webRequest = WebRequest.Create(location);
             webRequest.ContentType = "text/xml";
             webRequest.Method = "POST";
-            byte[] bytes = Encoding.ASCII.GetBytes(string.Format("stream.body=\"{0}\"", xml));
-            Stream os = null;
-            webRequest.ContentLength = bytes.Length;   //Count bytes to send
-            os = webRequest.GetRequestStream();
-            os.Write(bytes, 0, bytes.Length);         //Send it
-
-            os.Close();
-
-            WebResponse webResponse = webRequest.GetResponse();
-            using (StreamReader sr = new StreamReader(webResponse.GetResponseStream()))
+            byte[] bytes = Encoding.ASCII.GetBytes(xml);
+            webRequest.ContentLength = bytes.Length;
+            using(Stream os = webRequest.GetRequestStream())
             {
-                return sr.ReadToEnd().Trim();
+                os.Write(bytes, 0, bytes.Length);    
+                WebResponse webResponse = webRequest.GetResponse();
+                if (webResponse == null)
+                    return "Error: Response cannot be read";
+
+                Stream responseStream = webResponse.GetResponseStream();
+                if (responseStream == null)
+                    return "Error: Response stream cannot be read";
+
+                using (var sr = new StreamReader(responseStream))
+                {
+                    return sr.ReadToEnd().Trim();
+                }
             }
-            return null;
         }
     }
 
