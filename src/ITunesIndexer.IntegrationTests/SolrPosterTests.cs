@@ -1,4 +1,6 @@
-﻿using ITunesIndexer.Models;
+﻿using System;
+using System.Net;
+using ITunesIndexer.Models;
 using NUnit.Framework;
 
 namespace ITunesIndexer.IntegrationTests
@@ -9,7 +11,11 @@ namespace ITunesIndexer.IntegrationTests
         public void Item_is_added_to_solr_instance()
         {
             Song song = TestData.SingleSong();
-            var httpPoster = new HttpPoster();
+            WebRequest request = WebRequest.Create(new Uri(ConfigSettings.SolrUrl + @"/update"));
+            request.ContentType = "text/xml";
+            request.Method = "POST";
+            var wrapper = new WebRequestWrapper(request);
+            var httpPoster = new HttpPoster(wrapper);
             var solrPoster = new SolrPoster<Song>(httpPoster);
             string response = solrPoster.PostToSolr(song);
 
@@ -18,7 +24,7 @@ namespace ITunesIndexer.IntegrationTests
             var solrResponse = new SolrResponse(response);
 
             Assert.That(solrResponse, Is.Not.Null);
-            Assert.That(solrResponse.Status, Is.GreaterThan(0));
+            Assert.That(solrResponse.Status, Is.EqualTo(0));
         }
     }
 }

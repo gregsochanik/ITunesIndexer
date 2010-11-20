@@ -14,7 +14,7 @@ namespace ITunesIndexer.UnitTests
         {
             var log = MockRepository.GenerateStub<ILog>();
             var xmlPoster = MockRepository.GenerateStub<IHttpPoster>();
-            xmlPoster.Stub(x => x.Post(Arg<Uri>.Is.Anything, Arg<string>.Is.Anything)).Return("Post Added");
+            xmlPoster.Stub(x => x.Post(Arg<string>.Is.Anything)).Return("Post Added");
             var solrPoster = new SolrPoster<Song>(log, xmlPoster);
             solrPoster.PostToSolr(new Song());
             log.AssertWasCalled(x => x.Info("Post Added"));
@@ -25,7 +25,7 @@ namespace ITunesIndexer.UnitTests
         {
             var log = MockRepository.GenerateStub<ILog>();
             var xmlPoster = MockRepository.GenerateStub<IHttpPoster>();
-            xmlPoster.Stub(x => x.Post(Arg<Uri>.Is.Anything, Arg<string>.Is.Anything)).Throw(new Exception());
+            xmlPoster.Stub(x => x.Post(Arg<string>.Is.Anything)).Throw(new Exception());
 
             var solrPoster = new SolrPoster<Song>(log, xmlPoster);
             solrPoster.PostToSolr(new Song());

@@ -39,7 +39,7 @@ namespace ITunesIndexer
             try
             {
                 // post song xml to solr
-                response = _httpPoster.Post(new Uri(ConfigSettings.SolrUrl+@"/update"), xmlToPost);
+                response = _httpPoster.Post(xmlToPost);
                 _logger.Info("Post Added");
             } 
             catch (Exception ex)
@@ -58,17 +58,22 @@ namespace ITunesIndexer
 
     public class HttpPoster : IHttpPoster
     {
-        public string Post(Uri location, string xml)
+        private readonly IWebRequest _webRequest;
+
+        public HttpPoster(IWebRequest webRequest)
         {
-            WebRequest webRequest = WebRequest.Create(location);
-            webRequest.ContentType = "text/xml";
-            webRequest.Method = "POST";
+            _webRequest = webRequest;
+        }
+
+        public string Post(string xml)
+        {
+            
             byte[] bytes = Encoding.ASCII.GetBytes(xml);
-            webRequest.ContentLength = bytes.Length;
-            using(Stream os = webRequest.GetRequestStream())
+            _webRequest.SetContentLength(bytes.Length);
+            using(Stream os = _webRequest.GetRequestStream())
             {
                 os.Write(bytes, 0, bytes.Length);    
-                WebResponse webResponse = webRequest.GetResponse();
+                IWebResponse webResponse = _webRequest.GetResponse();
                 if (webResponse == null)
                     return "Error: Response cannot be read";
 
@@ -88,6 +93,7 @@ namespace ITunesIndexer
     {
         Stream GetRequestStream();
         IWebResponse GetResponse();
+        void SetContentLength(long contentLength);
     }
 
     public class WebRequestWrapper : IWebRequest
@@ -126,6 +132,11 @@ namespace ITunesIndexer
         {
             return new WebResponseWrapper(_webRequest.GetResponse());
         }
+
+        public void SetContentLength(long contentLength)
+        {
+            ContentLength = contentLength;
+        }
     }
 
     public class WebResponseWrapper : IWebResponse
@@ -150,7 +161,7 @@ namespace ITunesIndexer
 
     public interface IHttpPoster
     {
-        string Post(Uri location, string parameters);
+        string Post( string parameters);
     }
     
 }
