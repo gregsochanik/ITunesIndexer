@@ -48,15 +48,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigSettings.cs" />
+    <Compile Include="HttpPoster.cs" />
+    <Compile Include="IHttpPoster.cs" />
     <Compile Include="ILibraryBuilder.cs" />
     <Compile Include="ILibraryParser.cs" />
     <Compile Include="ISelector.cs" />
+    <Compile Include="IWebRequest.cs" />
+    <Compile Include="IWebResponse.cs" />
     <Compile Include="LibraryBuilder.cs" />
     <Compile Include="LibraryParser.cs" />
     <Compile Include="Models\Song.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SolrPoster.cs" />
     <Compile Include="SongSelector.cs" />
+    <Compile Include="WebRequestWrapper.cs" />
+    <Compile Include="WebResponseWrapper.cs" />
     <Compile Include="XNodeExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
