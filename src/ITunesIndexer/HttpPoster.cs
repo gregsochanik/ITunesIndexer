@@ -19,6 +19,9 @@ namespace ITunesIndexer
 
             using(Stream requestStream = _webRequest.GetRequestStream())
             {
+                if (requestStream == null)
+                    return "Error: no requestStream";
+
                 requestStream.Write(bytes, 0, bytes.Length);    
 
                 IWebResponse webResponse = _webRequest.GetResponse();
@@ -28,10 +31,10 @@ namespace ITunesIndexer
                 Stream responseStream = webResponse.GetResponseStream();
                 if (responseStream == null)
                     return "Error: Response stream cannot be read";
-
                 using (var sr = new StreamReader(responseStream))
                 {
-                    return sr.ReadToEnd().Trim();
+                    string response = sr.ReadToEnd().Trim();
+                    return response;
                 }
             }
         }

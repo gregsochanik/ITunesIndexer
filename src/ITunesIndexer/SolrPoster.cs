@@ -7,11 +7,6 @@ using Sochanik.Framework.Xml;
 
 namespace ITunesIndexer
 {
-    public interface ISolrPoster<in T>
-    {
-        string PostToSolr(T item);
-    }
-
     public class SolrPoster<T> : ISolrPoster<T> where T : class
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(SolrPoster<T>));
@@ -48,11 +43,6 @@ namespace ITunesIndexer
                 response = ex.Message;
             }
             return response;
-        }
-
-        private NameValueCollection CreateParams(string xml)
-        {
-            return new NameValueCollection{};
         }
     }
 }

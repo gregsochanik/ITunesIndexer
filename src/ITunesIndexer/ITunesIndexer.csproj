@@ -53,6 +53,7 @@
     <Compile Include="ILibraryBuilder.cs" />
     <Compile Include="ILibraryParser.cs" />
     <Compile Include="ISelector.cs" />
+    <Compile Include="ISolrPoster.cs" />
     <Compile Include="IWebRequest.cs" />
     <Compile Include="IWebResponse.cs" />
     <Compile Include="LibraryBuilder.cs" />
