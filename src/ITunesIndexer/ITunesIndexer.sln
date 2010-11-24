@@ -63,4 +63,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(NDepend) = preSolution
+		Project = ".\ITunesIndexer.ndproj"
+	EndGlobalSection
 EndGlobal

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 
 namespace ITunesIndexer
@@ -24,19 +25,40 @@ namespace ITunesIndexer
 
                 requestStream.Write(bytes, 0, bytes.Length);    
 
-                IWebResponse webResponse = _webRequest.GetResponse();
-                if (webResponse == null)
-                    return "Error: Response cannot be read";
+                IWebResponse webResponse = CheckWebResponse();
 
-                Stream responseStream = webResponse.GetResponseStream();
-                if (responseStream == null)
-                    return "Error: Response stream cannot be read";
-                using (var sr = new StreamReader(responseStream))
-                {
-                    string response = sr.ReadToEnd().Trim();
-                    return response;
-                }
+                Stream responseStream = CheckResponseStream(webResponse);
+
+                return ConvertResponseToString(responseStream);
             }
+        }
+
+        private static string ConvertResponseToString(Stream responseStream)
+        {
+            using (var sr = new StreamReader(responseStream))
+            {
+                responseStream.Flush();
+                string readToEnd = sr.ReadToEnd();
+                return readToEnd.Trim();
+            }
+        }
+
+        private static Stream CheckResponseStream(IWebResponse webResponse)
+        {
+            Stream responseStream = webResponse.GetResponseStream();
+            if (responseStream == null)
+                throw new Exception("Error: Response stream cannot be read");
+
+            return responseStream;
+        }
+
+        private IWebResponse CheckWebResponse()
+        {
+            IWebResponse webResponse = _webRequest.GetResponse();
+            if (webResponse == null)
+                throw new Exception("Error: Response cannot be read");
+
+            return webResponse;
         }
     }
 }

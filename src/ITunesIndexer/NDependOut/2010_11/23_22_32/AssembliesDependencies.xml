@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<AssemblyDependencies>
+  <Dependencies_For Assembly="ITunesIndexer v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>mscorlib v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>Sochanik.Framework v1.0.0.34282</DependsOn_Name>
+      <DependsOn_Name>System v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Xml.Linq v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Xml v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>log4net v1.2.10.0</DependsOn_Name>
+      <DependsOn_Name>System.Core v4.0.0.0</DependsOn_Name>
+    </DependsOn>
+    <ReferencedBy>
+      <ReferencedBy_Name>ITunesIndexer.UnitTests v1.0.0.0</ReferencedBy_Name>
+      <ReferencedBy_Name>ITunesIndexer.IntegrationTests v1.0.0.0</ReferencedBy_Name>
+    </ReferencedBy>
+  </Dependencies_For>
+  <Dependencies_For Assembly="ITunesIndexerService v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>mscorlib v4.0.0.0</DependsOn_Name>
+    </DependsOn>
+  </Dependencies_For>
+  <Dependencies_For Assembly="ITunesIndexer.UnitTests v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>mscorlib v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>ITunesIndexer v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>nunit.framework v2.5.8.10295</DependsOn_Name>
+      <DependsOn_Name>Rhino.Mocks v3.5.0.1337</DependsOn_Name>
+      <DependsOn_Name>log4net v1.2.10.0</DependsOn_Name>
+      <DependsOn_Name>System.Core v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Xml.Linq v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Xml v4.0.0.0</DependsOn_Name>
+    </DependsOn>
+  </Dependencies_For>
+  <Dependencies_For Assembly="ITunesIndexer.IntegrationTests v1.0.0.0">
+    <DependsOn>
+      <DependsOn_Name>mscorlib v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System.Xml v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>System v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>ITunesIndexer v1.0.0.0</DependsOn_Name>
+      <DependsOn_Name>nunit.framework v2.5.8.10295</DependsOn_Name>
+      <DependsOn_Name>System.Core v4.0.0.0</DependsOn_Name>
+      <DependsOn_Name>log4net v1.2.10.0</DependsOn_Name>
+      <DependsOn_Name>System.Xml.Linq v4.0.0.0</DependsOn_Name>
+    </DependsOn>
+  </Dependencies_For>
+</AssemblyDependencies>

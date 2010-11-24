@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<AssembliesMetrics>
+  <Assembly Assembly="ITunesIndexer v1.0.0.0" NTypes="18" NAbstractTypes="7" NILInstructionInAsm="685" NbLinesOfCodeInAsm="76" NbLinesOfCommentInAsm="20" PercentageCommentInAsm="20" AfferentCoupling="10" EfferentCoupling="40" RelationalCohesion="1.17" Instability="0.8" Abstractness="0.39" DistFrMainSeq="0.13" NormDistFrMainSeq="0.19" />
+  <Assembly Assembly="ITunesIndexerService v1.0.0.0" NTypes="1" NAbstractTypes="0" NILInstructionInAsm="5" NbLinesOfCodeInAsm="0" NbLinesOfCommentInAsm="17" PercentageCommentInAsm="100" AfferentCoupling="0" EfferentCoupling="4" RelationalCohesion="1" Instability="1" Abstractness="0" DistFrMainSeq="0" NormDistFrMainSeq="0" />
+  <Assembly Assembly="ITunesIndexer.UnitTests v1.0.0.0" NTypes="6" NAbstractTypes="0" NILInstructionInAsm="743" NbLinesOfCodeInAsm="103" NbLinesOfCommentInAsm="19" PercentageCommentInAsm="15" AfferentCoupling="0" EfferentCoupling="52" RelationalCohesion="0.33" Instability="1" Abstractness="0" DistFrMainSeq="0" NormDistFrMainSeq="0" />
+  <Assembly Assembly="ITunesIndexer.IntegrationTests v1.0.0.0" NTypes="7" NAbstractTypes="0" NILInstructionInAsm="463" NbLinesOfCodeInAsm="67" NbLinesOfCommentInAsm="17" PercentageCommentInAsm="20" AfferentCoupling="0" EfferentCoupling="51" RelationalCohesion="0.43" Instability="1" Abstractness="0" DistFrMainSeq="0" NormDistFrMainSeq="0" />
+</AssembliesMetrics>
