@@ -37,9 +37,7 @@ namespace ITunesIndexer
         {
             using (var sr = new StreamReader(responseStream))
             {
-                responseStream.Flush();
-                string readToEnd = sr.ReadToEnd();
-                return readToEnd.Trim();
+                return sr.ReadToEnd().Trim();
             }
         }
 
