@@ -1,24 +1,40 @@
 ﻿using System;
+using SolrNet.Attributes;
 
 namespace ITunesIndexer.Models
 {
-    [Serializable]
+	[Serializable]
     public class Song
     {
-        public int Id { get; set; }				
-        public string Album { get; set; }		
-        public string Artist { get; set; }		
-        public int BitRate { get; set; }		
-        public string Comments { get; set; }	
-        public string Composer { get; set; }	
-        public string Genre { get; set; }		
-        public string Kind { get; set; }		
-        public string Location { get; set; }	
-        public string Name { get; set; }		
-        public int PlayCount { get; set; }		
-        public int SampleRate { get; set; }		
-        public Int64 Size { get; set; }			
-        public Int64 TotalTime { get; set; }	
+		[SolrUniqueKey("id")]
+        public int Id { get; set; }		
+		[SolrField("Album")]
+        public string Album { get; set; }
+		[SolrField("Artist")]
+        public string Artist { get; set; }
+		[SolrField("BitRate")]
+        public int BitRate { get; set; }
+		[SolrField("Comments")]
+        public string Comments { get; set; }
+		[SolrField("Composer")]
+        public string Composer { get; set; }
+		[SolrField("Genre")]
+		public string Genre { get; set; }
+		[SolrField("Kind")]
+        public string Kind { get; set; }
+		[SolrField("Location")]
+        public string Location { get; set; }
+		[SolrField("Name")]
+        public string Name { get; set; }
+		[SolrField("PlayCount")]
+        public int PlayCount { get; set; }
+		[SolrField("SampleRate")]
+        public int SampleRate { get; set; }
+		[SolrField("Size")]
+        public Int64 Size { get; set; }
+		[SolrField("TotalTime")]	
+        public Int64 TotalTime { get; set; }
+		[SolrField("TrackNumber")]
         public int TrackNumber { get; set; }	
     }
 }
