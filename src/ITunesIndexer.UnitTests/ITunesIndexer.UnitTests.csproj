@@ -52,10 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HttpPosterTests.cs" />
+    <Compile Include="LibraryBuilderTests.cs" />
     <Compile Include="LoggingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SolrPosterTests.cs" />
     <Compile Include="SongSelectorTests.cs" />
+    <Compile Include="WebRequestWrapperTests.cs" />
+    <Compile Include="WebResponseWrapperTests.cs" />
     <Compile Include="XNodeExtensionsTests.cs" />
   </ItemGroup>
   <ItemGroup>

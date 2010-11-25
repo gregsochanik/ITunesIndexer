@@ -9,7 +9,6 @@ namespace ITunesIndexer
     {
         public IEnumerable<XElement> ParseXml(string pathToXml)
         {
-            // transfer
             XDocument loaded = XDocument.Load(pathToXml); // TODO This could be pulled out to allow Stubbed XDocuments to be passed in for testing
 
             Func<XElement, XElement> keySelector = key => new XElement(((string)key).Replace(" ", ""), (string)(XElement)key.NextNode);

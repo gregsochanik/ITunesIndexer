@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<AssemblySortForCompilOrObfusk>
-  <Assembly Assembly="ITunesIndexer">10</Assembly>
-  <Assembly Assembly="ITunesIndexerService">11</Assembly>
-  <Assembly Assembly="ITunesIndexer.UnitTests">12</Assembly>
-  <Assembly Assembly="ITunesIndexer.IntegrationTests">13</Assembly>
-</AssemblySortForCompilOrObfusk>

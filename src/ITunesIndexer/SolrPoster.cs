@@ -25,9 +25,7 @@ namespace ITunesIndexer
 
         public string PostToSolr(T item)
         {
-            var doc = SerializationHelper<T>.Serialize(item) as XmlDocument;
-            if(doc == null)
-                throw new ArgumentException("item supplied could not be serialized to xml");
+            var doc = SerializationHelper<T>.Serialize(item) as XmlDocument ?? new XmlDocument();
 
             string xmlToPost = doc.InnerXml;
             string response;

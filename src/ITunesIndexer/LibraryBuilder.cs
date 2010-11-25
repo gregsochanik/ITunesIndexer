@@ -7,9 +7,19 @@ namespace ITunesIndexer
 {
     public class LibraryBuilder<T> : ILibraryBuilder<T> where T : class
     {
+        private readonly ILibraryParser _libraryParser;
+
+        public LibraryBuilder() : this(new LibraryParser())
+        {}
+
+        public LibraryBuilder(ILibraryParser libraryParser)
+        {
+            _libraryParser = libraryParser;
+        }
+
         public IEnumerable<T> BuildLibrary(string pathToXml)
         {
-            IEnumerable<XElement> items = new LibraryParser().ParseXml(pathToXml);
+            IEnumerable<XElement> items = _libraryParser.ParseXml(pathToXml);
             return BuildLibrary(items);
         }
 
