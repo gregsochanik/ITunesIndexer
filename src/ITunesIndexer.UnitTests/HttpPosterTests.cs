@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using ITunesIndexer.Http;
 using NUnit.Framework;
 using Rhino.Mocks;
 

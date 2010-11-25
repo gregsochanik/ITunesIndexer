@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Specialized;
+using ITunesIndexer.Http;
 using ITunesIndexer.Models;
+using ITunesIndexer.Solr;
 using log4net;
 using NUnit.Framework;
 using Rhino.Mocks;

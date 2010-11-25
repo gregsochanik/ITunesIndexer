@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Net;
+using ITunesIndexer.Http;
 using NUnit.Framework;
 using Rhino.Mocks;
 
@@ -54,6 +55,30 @@ namespace ITunesIndexer.UnitTests
             webResponseWrapper.SetContentLength(expected);
 
             Assert.That(webResponseWrapper.ContentLength, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void Should_return_correct_content_type()
+        {
+            const string expected = "text/xml";
+
+            var webRequest = MockRepository.GenerateStub<WebRequest>();
+            webRequest.ContentType = expected;
+            var webRequestWrapper = new WebRequestWrapper(webRequest);
+
+            Assert.That(webRequestWrapper.ContentType, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void Should_return_correct_method()
+        {
+            const string expected = "POST";
+
+            var webRequest = MockRepository.GenerateStub<WebRequest>();
+            webRequest.Method = expected;
+            var webRequestWrapper = new WebRequestWrapper(webRequest);
+
+            Assert.That(webRequestWrapper.Method, Is.EqualTo(expected));
         }
     }
 }

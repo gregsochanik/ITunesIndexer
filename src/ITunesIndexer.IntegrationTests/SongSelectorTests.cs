@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using ITunesIndexer.Configuration;
+using ITunesIndexer.Controllers;
+using ITunesIndexer.ItunesXml;
 using ITunesIndexer.Models;
 using NUnit.Framework;
 

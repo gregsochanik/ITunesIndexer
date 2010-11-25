@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using ITunesIndexer.Configuration;
+using ITunesIndexer.ItunesXml;
 using NUnit.Framework;
 
 namespace ITunesIndexer.IntegrationTests

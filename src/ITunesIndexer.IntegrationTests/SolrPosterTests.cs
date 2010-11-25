@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Net;
+using ITunesIndexer.Configuration;
+using ITunesIndexer.Http;
 using ITunesIndexer.Models;
+using ITunesIndexer.Solr;
 using NUnit.Framework;
 
 namespace ITunesIndexer.IntegrationTests

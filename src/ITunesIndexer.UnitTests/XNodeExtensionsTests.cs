@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using System.Xml.Linq;
+using ITunesIndexer.ItunesXml;
 using NUnit.Framework;
 
 namespace ITunesIndexer.UnitTests
