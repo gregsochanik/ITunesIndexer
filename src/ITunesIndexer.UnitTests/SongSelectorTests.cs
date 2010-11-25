@@ -77,7 +77,7 @@ namespace ITunesIndexer.UnitTests
 
         
 
-        public List<Song> TestData()
+        public static List<Song> TestData()
         {
             return new List<Song>
                        {
