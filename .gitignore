@@ -5,3 +5,4 @@ _ReSharper*
 *.[oa]
 /src/*/obj/
 /src/*/bin/
+/src/*/NDependOut/*
