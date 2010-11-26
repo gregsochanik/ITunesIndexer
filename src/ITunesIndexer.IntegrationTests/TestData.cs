@@ -18,7 +18,7 @@ namespace ITunesIndexer.IntegrationTests
 
         public static Song SingleSong()
         {
-            return new Song {Album = "Antics", Artist = "Interpol", Name = "Evil", Id= 1001};
+            return new Song {Album = "Antics", Artist = "Interpol", Name = "Evil", Id= 1001, BitRate=320};
         }
     }
 }

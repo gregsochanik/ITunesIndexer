@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Net;
+using Castle.Facilities.SolrNetIntegration;
+using Castle.Windsor;
+using Castle.Windsor.Configuration.Interpreters;
 using ITunesIndexer.Configuration;
 using ITunesIndexer.Http;
 using ITunesIndexer.Models;
 using ITunesIndexer.Solr;
 using NUnit.Framework;
+using SolrNet;
 
 namespace ITunesIndexer.IntegrationTests
 {
@@ -32,6 +36,43 @@ namespace ITunesIndexer.IntegrationTests
             Assert.That(solrResponse, Is.Not.Null);
             Assert.That(solrResponse.Status, Is.EqualTo(0));
         }
+
+		[Test]
+		[Category("Spike")]
+		public void Should_add_to_solr_using_solrnet()
+		{
+			Given_a_single_song();
+
+			var solrFacility = new SolrNetFacility();
+
+			var container = new WindsorContainer(new XmlInterpreter());
+			container.AddFacility("solr", solrFacility);
+
+			
+			var solrOperations = container.Resolve<ISolrOperations<Song>>();
+			var response = solrOperations.Add(TestData.BasicListOfSongs());
+			Assert.That(response.Status, Is.EqualTo(0));
+
+			response = solrOperations.Commit();
+			Assert.That(response.Status, Is.EqualTo(0));
+
+			ISolrQueryResults<Song> solrQueryResults = solrOperations.Query("Artist:Kings");
+
+			Assert.That(solrQueryResults.Count, Is.GreaterThan(0));
+
+			response = solrOperations.Delete(TestData.BasicListOfSongs());
+			Assert.That(response.Status, Is.EqualTo(0));
+
+			response = solrOperations.Commit();
+			Assert.That(response.Status, Is.EqualTo(0));
+
+			solrQueryResults = solrOperations.Query("Artist:Kings");
+			Assert.That(solrQueryResults.Count, Is.EqualTo(0));
+
+
+		}
+
+
 
         private void Given_a_single_song()
         {
