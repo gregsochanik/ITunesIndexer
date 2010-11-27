@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using ITunesIndexer.Models;
 using Sochanik.Framework.Xml;
 
 namespace ITunesIndexer.ItunesXml
 {
-    public class LibraryBuilder<T> : ILibraryBuilder<T> where T : class
+	public class LibraryBuilder<T> : ILibraryBuilder<T> where T : class
     {
         private readonly ILibraryParser _libraryParser;
 
@@ -25,7 +26,7 @@ namespace ITunesIndexer.ItunesXml
 
         public IEnumerable<T> BuildLibrary(IEnumerable<XElement> items)
         {
-            return items.Select(x => SerializationHelper<T>.Deserialize(x.ToXmlDocument()));
+			return items.Select(x => SerializationHelper<T>.Deserialize(x.ToXmlDocument()));
         }
     }
 }

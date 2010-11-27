@@ -79,6 +79,7 @@
     <Compile Include="LibraryBuilderTests.cs" />
     <Compile Include="LibraryParserTests.cs" />
     <Compile Include="LoggingTests.cs" />
+    <Compile Include="SolrContainerBuilderTests.cs" />
     <Compile Include="SolrPosterTests.cs" />
     <Compile Include="SolrResponse.cs" />
     <Compile Include="SongSelectorTests.cs" />

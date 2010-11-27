@@ -4,10 +4,10 @@ using SolrNet.Attributes;
 namespace ITunesIndexer.Models
 {
 	[Serializable]
-    public class Song
+	public class Song
     {
 		[SolrUniqueKey("id")]
-        public int Id { get; set; }		
+        public int TrackID { get; set; }		
 		[SolrField("Album")]
         public string Album { get; set; }
 		[SolrField("Artist")]

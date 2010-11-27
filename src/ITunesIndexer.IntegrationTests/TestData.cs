@@ -9,16 +9,16 @@ namespace ITunesIndexer.IntegrationTests
         {
             return new List<Song>
                        {
-                           new Song { Album = "Only By The Night", Artist = "Kings of Leon", Name = "Be Somebody", Id=1001 },
-                           new Song { Album = "Oracular Spectacular", Artist = "MGMT", Name = "Kids", Id=1002 },
-                           new Song { Album = "Antics", Artist = "Interpol", Name = "Evil", Id=1003 },
-                           new Song { Album = "Antics", Artist = "Interpol", Name = "Slow Hands", Id=1004 },
+                           new Song { Album = "Only By The Night", Artist = "Kings of Leon", Name = "Be Somebody", TrackID=1001 },
+                           new Song { Album = "Oracular Spectacular", Artist = "MGMT", Name = "Kids", TrackID=1002 },
+                           new Song { Album = "Antics", Artist = "Interpol", Name = "Evil", TrackID=1003 },
+                           new Song { Album = "Antics", Artist = "Interpol", Name = "Slow Hands", TrackID=1004 },
                        };
         }
 
         public static Song SingleSong()
         {
-            return new Song {Album = "Antics", Artist = "Interpol", Name = "Evil", Id= 1001, BitRate=320};
+            return new Song {Album = "Antics", Artist = "Interpol", Name = "Evil", TrackID= 1001, BitRate=320};
         }
     }
 }

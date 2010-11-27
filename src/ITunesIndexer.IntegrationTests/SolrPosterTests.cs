@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using Castle.Facilities.SolrNetIntegration;
 using Castle.Windsor;
 using Castle.Windsor.Configuration.Interpreters;
 using ITunesIndexer.Configuration;
 using ITunesIndexer.Http;
+using ITunesIndexer.ItunesXml;
 using ITunesIndexer.Models;
 using ITunesIndexer.Solr;
 using NUnit.Framework;
@@ -42,34 +45,66 @@ namespace ITunesIndexer.IntegrationTests
 		public void Should_add_to_solr_using_solrnet()
 		{
 			Given_a_single_song();
-
-			var solrFacility = new SolrNetFacility();
-
-			var container = new WindsorContainer(new XmlInterpreter());
-			container.AddFacility("solr", solrFacility);
-
 			
-			var solrOperations = container.Resolve<ISolrOperations<Song>>();
-			var response = solrOperations.Add(TestData.BasicListOfSongs());
+			var solrInstance = new SolrCastleResolver<Song>().GetSolrOperationInstance();
+			var response = solrInstance.Add(TestData.BasicListOfSongs());
 			Assert.That(response.Status, Is.EqualTo(0));
 
-			response = solrOperations.Commit();
+			response = solrInstance.Commit();
 			Assert.That(response.Status, Is.EqualTo(0));
 
-			ISolrQueryResults<Song> solrQueryResults = solrOperations.Query("Artist:Kings");
+			ISolrQueryResults<Song> solrQueryResults = solrInstance.Query("Artist:Kings");
 
 			Assert.That(solrQueryResults.Count, Is.GreaterThan(0));
 
-			response = solrOperations.Delete(TestData.BasicListOfSongs());
+			response = solrInstance.Delete(TestData.BasicListOfSongs());
 			Assert.That(response.Status, Is.EqualTo(0));
 
-			response = solrOperations.Commit();
+			response = solrInstance.Commit();
 			Assert.That(response.Status, Is.EqualTo(0));
 
-			solrQueryResults = solrOperations.Query("Artist:Kings");
+			solrQueryResults = solrInstance.Query("Artist:Kings");
 			Assert.That(solrQueryResults.Count, Is.EqualTo(0));
+		}
 
+		[Test]
+		[Category("Spike")]
+		public void Should_batch_add_records_to_solr()
+		{
+			// work out a batch strategy
+			const int batchNumber = 10;
 
+			// get list of songs
+			string pathToItunesLibrary = ConfigSettings.PathToXml;
+
+			IEnumerable<Song> songs = new LibraryBuilder<Song>().BuildLibrary(pathToItunesLibrary);
+
+			int counter = 0;
+			int numberOfSongs = songs.Count();
+			int numberOfBatches = numberOfSongs / batchNumber;
+
+			var solrInstance = new SolrCastleResolver<Song>().GetSolrOperationInstance();
+
+			// for each batch
+			for (int i = 0; i < numberOfBatches; i++)
+			{
+				int start = counter;
+				// get list of songs
+				IEnumerable<Song> songBatch = songs.Skip(start).Take(batchNumber);
+				// add batch to Solr
+				Console.WriteLine("Adding {0} through to {1}", start, start + songBatch.Count()-1);
+				var response = solrInstance.Add(songBatch);
+				Assert.That(response.Status, Is.EqualTo(0));
+
+				// Commit
+				Console.WriteLine("Committing batch");
+				response = solrInstance.Commit();
+				Assert.That(response.Status, Is.EqualTo(0));
+				counter += batchNumber;
+			}
+			Console.WriteLine("Optimizing index");
+			solrInstance.Optimize();
+			Console.Read();
 		}
 
 
