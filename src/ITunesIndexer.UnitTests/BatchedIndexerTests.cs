@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using ITunesIndexer.Solr;
 using NUnit.Framework;
 using Rhino.Mocks;
@@ -37,6 +34,18 @@ namespace ITunesIndexer.UnitTests
 			batchedIndexer.Index(_itemsToIndex);
 
 			Assert.That(batchedIndexer.NumberOfItems, Is.EqualTo(numberOfItems));
+		}
+
+		[Test]
+		public void Should_work_out_correct_number_of_batches()
+		{
+			
+		}
+
+		[Test]
+		public void Should_work_out_correct_remainder()
+		{
+			
 		}
 
 		private void Given_a_solr_resolver_that_returns_a_stubbed_solr_instance()
