@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Castle.Facilities.SolrNetIntegration;
-using Castle.Windsor;
-using Castle.Windsor.Configuration.Interpreters;
 using ITunesIndexer.Configuration;
 using ITunesIndexer.Http;
 using ITunesIndexer.ItunesXml;
 using ITunesIndexer.Models;
 using ITunesIndexer.Solr;
 using NUnit.Framework;
-using SolrNet;
 
 namespace ITunesIndexer.IntegrationTests
 {
@@ -40,51 +36,25 @@ namespace ITunesIndexer.IntegrationTests
             Assert.That(solrResponse.Status, Is.EqualTo(0));
         }
 
-		[Test]
-		[Category("Spike")]
-		public void Should_add_to_solr_using_solrnet()
-		{
-			Given_a_single_song();
-			
-			var solrInstance = new SolrCastleResolver<Song>().GetSolrOperationInstance();
-			var response = solrInstance.Add(TestData.BasicListOfSongs());
-			Assert.That(response.Status, Is.EqualTo(0));
-
-			response = solrInstance.Commit();
-			Assert.That(response.Status, Is.EqualTo(0));
-
-			ISolrQueryResults<Song> solrQueryResults = solrInstance.Query("Artist:Kings");
-
-			Assert.That(solrQueryResults.Count, Is.GreaterThan(0));
-
-			response = solrInstance.Delete(TestData.BasicListOfSongs());
-			Assert.That(response.Status, Is.EqualTo(0));
-
-			response = solrInstance.Commit();
-			Assert.That(response.Status, Is.EqualTo(0));
-
-			solrQueryResults = solrInstance.Query("Artist:Kings");
-			Assert.That(solrQueryResults.Count, Is.EqualTo(0));
-		}
-
+		
 		[Test]
 		[Category("Spike")]
 		public void Should_batch_add_records_to_solr()
 		{
 			// work out a batch strategy
-			const int batchNumber = 10;
+			const int batchNumber = 100;
 
 			// get list of songs
 			string pathToItunesLibrary = ConfigSettings.PathToXml;
 
 			IEnumerable<Song> songs = new LibraryBuilder<Song>().BuildLibrary(pathToItunesLibrary);
-
+			songs = songs.Where(x => !string.IsNullOrEmpty(x.Artist) && !string.IsNullOrEmpty(x.Album));
 			int counter = 0;
 			int numberOfSongs = songs.Count();
 			int numberOfBatches = numberOfSongs / batchNumber;
 
 			var solrInstance = new SolrCastleResolver<Song>().GetSolrOperationInstance();
-
+			
 			// for each batch
 			for (int i = 0; i < numberOfBatches; i++)
 			{
