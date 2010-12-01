@@ -42,6 +42,10 @@
     <Reference Include="Sochanik.Framework">
       <HintPath>..\..\lib\Sochanik.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="SolrNet, Version=0.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\SolrNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BatchedIndexerTests.cs" />
     <Compile Include="HttpPosterTests.cs" />
     <Compile Include="LibraryBuilderTests.cs" />
     <Compile Include="LoggingTests.cs" />

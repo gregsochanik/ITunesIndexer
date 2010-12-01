@@ -41,6 +41,7 @@ namespace ITunesIndexer.IntegrationTests
 		[Category("Spike")]
 		public void Should_batch_add_records_to_solr()
 		{
+			log4net.Config.XmlConfigurator.Configure();
 			// work out a batch strategy
 			const int batchNumber = 100;
 
@@ -49,32 +50,9 @@ namespace ITunesIndexer.IntegrationTests
 
 			IEnumerable<Song> songs = new LibraryBuilder<Song>().BuildLibrary(pathToItunesLibrary);
 			songs = songs.Where(x => !string.IsNullOrEmpty(x.Artist) && !string.IsNullOrEmpty(x.Album));
-			int counter = 0;
-			int numberOfSongs = songs.Count();
-			int numberOfBatches = numberOfSongs / batchNumber;
+			var indexer = new BatchedIndexer<Song>(new SolrCastleResolver<Song>()) {BatchBy = batchNumber};
 
-			var solrInstance = new SolrCastleResolver<Song>().GetSolrOperationInstance();
-			
-			// for each batch
-			for (int i = 0; i < numberOfBatches; i++)
-			{
-				int start = counter;
-				// get list of songs
-				IEnumerable<Song> songBatch = songs.Skip(start).Take(batchNumber);
-				// add batch to Solr
-				Console.WriteLine("Adding {0} through to {1}", start, start + songBatch.Count()-1);
-				var response = solrInstance.Add(songBatch);
-				Assert.That(response.Status, Is.EqualTo(0));
-
-				// Commit
-				Console.WriteLine("Committing batch");
-				response = solrInstance.Commit();
-				Assert.That(response.Status, Is.EqualTo(0));
-				counter += batchNumber;
-			}
-			Console.WriteLine("Optimizing index");
-			solrInstance.Optimize();
-			Console.Read();
+			indexer.Index(songs);
 		}
 
 

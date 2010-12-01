@@ -80,8 +80,12 @@
     <Compile Include="ItunesXml\XNodeExtensions.cs" />
     <Compile Include="Models\Song.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solr\BatchedIndexer.cs" />
+    <Compile Include="Solr\IContainerBuilder.cs" />
     <Compile Include="Solr\ISolrPoster.cs" />
+    <Compile Include="Solr\ISolrResolver.cs" />
     <Compile Include="Solr\SolrCastleResolver.cs" />
+    <Compile Include="Solr\SolrContainerBuilder.cs" />
     <Compile Include="Solr\SolrPoster.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
