@@ -81,7 +81,10 @@
     <Compile Include="Models\Song.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solr\BatchedIndexer.cs" />
+    <Compile Include="Solr\Batcher.cs" />
+    <Compile Include="Solr\IBatcher.cs" />
     <Compile Include="Solr\IContainerBuilder.cs" />
+    <Compile Include="Solr\IIndexer.cs" />
     <Compile Include="Solr\ISolrPoster.cs" />
     <Compile Include="Solr\ISolrResolver.cs" />
     <Compile Include="Solr\SolrCastleResolver.cs" />

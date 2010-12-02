@@ -52,7 +52,7 @@ namespace ITunesIndexer.IntegrationTests
 			songs = songs.Where(x => !string.IsNullOrEmpty(x.Artist) && !string.IsNullOrEmpty(x.Album));
 			var indexer = new BatchedIndexer<Song>(new SolrCastleResolver<Song>()) {BatchBy = batchNumber};
 
-			indexer.Index(songs);
+			indexer.GenerateIndex(songs);
 		}
 
 

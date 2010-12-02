@@ -17,35 +17,33 @@ namespace ITunesIndexer.UnitTests
 			Given_a_solr_resolver_that_returns_a_stubbed_solr_instance();
 			Given_a_set_of_items_of_length(3);
 			var batchedIndexer = new BatchedIndexer<TestClass>(_solrResolver);
-			batchedIndexer.Index(_itemsToIndex);
+			batchedIndexer.GenerateIndex(_itemsToIndex);
 
 			_solrResolver.AssertWasCalled(x=>x.GetSolrOperationInstance());
 		}
-
+		
 		[Test]
-		public void Should_work_out_correct_numberofitems()
+		public void Should_work_out_correct_number_of_batches()
 		{
-			const int numberOfItems = 20;
+			const int batchBy = 10;
+			const int numberOfItems = 25;
+			const int expectedBatches = numberOfItems / batchBy;
+			const int expectedRemainder = numberOfItems % batchBy;
 
 			Given_a_solr_resolver_that_returns_a_stubbed_solr_instance();
 			Given_a_set_of_items_of_length(numberOfItems);
 
-			var batchedIndexer = new BatchedIndexer<TestClass>(_solrResolver);
-			batchedIndexer.Index(_itemsToIndex);
+			var batchedIndexer = new Batcher<TestClass>(batchBy);
+			batchedIndexer.GetBatch(_itemsToIndex, 0, 0);
 
-			Assert.That(batchedIndexer.NumberOfItems, Is.EqualTo(numberOfItems));
+			Assert.That(batchedIndexer.NumberOfBatches, Is.EqualTo(expectedBatches));
+			Assert.That(batchedIndexer.Remainder, Is.EqualTo(expectedRemainder));
 		}
 
 		[Test]
-		public void Should_work_out_correct_number_of_batches()
+		public void Should_fire_GetBatch_with_correct_data()
 		{
-			
-		}
-
-		[Test]
-		public void Should_work_out_correct_remainder()
-		{
-			
+			Assert.Fail();
 		}
 
 		private void Given_a_solr_resolver_that_returns_a_stubbed_solr_instance()

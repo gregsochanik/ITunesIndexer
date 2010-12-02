@@ -5,50 +5,45 @@ using log4net;
 
 namespace ITunesIndexer.Solr
 {
-	public class BatchedIndexer<T>
+	public class BatchedIndexer<T> : IIndexer<T>
 	{
 		private readonly ISolrResolver<T> _solrResolver;
+		private readonly IBatcher<T> _batcher;
 		private readonly ILog _log;
 
-		private int _batchBy = 100;
 		public int BatchBy
 		{
-			get { return _batchBy; }
-			set { _batchBy = value; }
+			set{_batcher.BatchBy = value;}
 		}
 
-		public int NumberOfItems { get; private set; }
-		public int NumberOfBatches { get; private set; }
-
 		public BatchedIndexer(ISolrResolver<T> solrResolver)
-			: this(solrResolver, LogManager.GetLogger(typeof(BatchedIndexer<T>)))
+			: this(solrResolver, new Batcher<T>(),  LogManager.GetLogger(typeof(BatchedIndexer<T>)))
 		{}
 
-		public BatchedIndexer(ISolrResolver<T> solrResolver, ILog log)
+		public BatchedIndexer(ISolrResolver<T> solrResolver, IBatcher<T> batcher, ILog log)
 		{
 			_solrResolver = solrResolver;
+			_batcher = batcher;
 			_log = log;
 		}
 
-		public void Index(IEnumerable<T> itemsToIndex)
+		public void GenerateIndex(IEnumerable<T> itemsToIndex)
 		{
 			int counter = 0;
-			NumberOfItems = itemsToIndex.Count();
-			NumberOfBatches = NumberOfItems / _batchBy;
-
 			var solrInstance = _solrResolver.GetSolrOperationInstance();
 
-			// for each batch
-			for (int i = 0; i < NumberOfBatches; i++)
+			for (int position = 0; position <= _batcher.NumberOfBatches; position++)
 			{
 				int start = counter;
-				IEnumerable<T> songBatch = itemsToIndex.Skip(start).Take(_batchBy);
-				_log.Info(string.Format("Adding {0} through to {1}", start, start + songBatch.Count() - 1));
-				solrInstance.Add(songBatch);
+
+				IEnumerable<T> batch = _batcher.GetBatch(itemsToIndex, start, position);
+
+				_log.Info(string.Format("Adding {0} through to {1}", start, start + batch.Count() - 1));
+				solrInstance.Add(batch);
 
 				_log.Info("Committing batch");
 				solrInstance.Commit();
-				counter += _batchBy;
+				counter += _batcher.BatchBy;
 			}
 			_log.Info("Optimizing index");
 			solrInstance.Optimize();
