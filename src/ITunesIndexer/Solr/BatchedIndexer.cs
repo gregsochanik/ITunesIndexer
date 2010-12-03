@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using log4net;
 
@@ -32,8 +31,13 @@ namespace ITunesIndexer.Solr
 			int counter = 0;
 			var solrInstance = _solrResolver.GetSolrOperationInstance();
 
+			_batcher.PrepareBatch(itemsToIndex.Count());
+
 			for (int position = 0; position <= _batcher.NumberOfBatches; position++)
 			{
+				if (position == _batcher.NumberOfBatches && _batcher.Remainder == 0)
+					continue;
+
 				int start = counter;
 
 				IEnumerable<T> batch = _batcher.GetBatch(itemsToIndex, start, position);

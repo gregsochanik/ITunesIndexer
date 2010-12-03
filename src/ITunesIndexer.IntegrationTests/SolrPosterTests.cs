@@ -43,7 +43,7 @@ namespace ITunesIndexer.IntegrationTests
 		{
 			log4net.Config.XmlConfigurator.Configure();
 			// work out a batch strategy
-			const int batchNumber = 100;
+			const int batchNumber = 1000;
 
 			// get list of songs
 			string pathToItunesLibrary = ConfigSettings.PathToXml;

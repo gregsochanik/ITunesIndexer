@@ -25,12 +25,12 @@ namespace ITunesIndexer.Solr
 
 		public IEnumerable<T> GetBatch(IEnumerable<T> itemsToIndex, int start, int position)
 		{
-			PrepareBatch(itemsToIndex.Count());
+			//PrepareBatch(itemsToIndex.Count());
 			int numToTake = position == NumberOfBatches ? Remainder : _batchBy;
 			return itemsToIndex.Skip(start).Take(numToTake);
 		}
 
-		private void PrepareBatch(int numberOfItems)
+		public void PrepareBatch(int numberOfItems)
 		{
 			NumberOfBatches = numberOfItems / _batchBy;
 			Remainder = numberOfItems % _batchBy;

@@ -8,5 +8,6 @@ namespace ITunesIndexer.Solr
 		int BatchBy { get; set; }
 		int NumberOfBatches { get; }
 		int Remainder { get; }
+		void PrepareBatch(int numberOfItems);
 	}
 }
