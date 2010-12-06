@@ -31,9 +31,9 @@ namespace ITunesIndexer.Models
 		[SolrField("SampleRate")]
         public int SampleRate { get; set; }
 		[SolrField("Size")]
-        public Int64 Size { get; set; }
+        public long Size { get; set; }
 		[SolrField("TotalTime")]	
-        public Int64 TotalTime { get; set; }
+        public long TotalTime { get; set; }
 		[SolrField("TrackNumber")]
         public int TrackNumber { get; set; }	
     }

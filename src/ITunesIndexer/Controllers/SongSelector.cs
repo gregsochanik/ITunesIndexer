@@ -15,7 +15,7 @@ namespace ITunesIndexer.Controllers
         public SongSelector(ILibraryBuilder<Song> libraryBuilder)
         {
             _libraryBuilder = libraryBuilder;
-            _library = _libraryBuilder.BuildLibrary(ConfigSettings.PathToXml);
+            _library = _libraryBuilder.BuildLibrary(ConfigSettings.PathToXml); // TODO - fix this shit!
         }
 
         public Song FindSingle(Func<Song, bool> predicate)
