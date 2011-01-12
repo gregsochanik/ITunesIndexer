@@ -23,18 +23,18 @@ namespace ITunesIndexer.ItunesXml
 				if (currentAlbum == song.Album)
 					continue;
 
-				string albumName = currentAlbum;
+				currentAlbum = song.Album;
+				string finderSearch = string.Format("{0} {1}", song.Artist, currentAlbum);
 				var artist = new Album
 				             	{
 				             		AlbumId = currentId,
-				             		Image = _imageFinder.FindImage(albumName),
-				             		Name = albumName,
+									Image = _imageFinder.FindImage(finderSearch),
+									Name = currentAlbum,
 				             		Genre = song.Genre,
-				             		TotalTime = toConvert.Where(x => x.Album == albumName).Sum(x => x.TotalTime),
-				             		Tracks = toConvert.Where(x => x.Album == albumName).ToList()
+									TotalTime = toConvert.Where(x => x.Album == currentAlbum).Sum(x => x.TotalTime),
+									Tracks = toConvert.Where(x => x.Album == currentAlbum).ToList()
 				             	};
 				albums.Add(artist);
-				currentAlbum = song.Artist;
 				currentId += 2;
 			}
 			return albums;

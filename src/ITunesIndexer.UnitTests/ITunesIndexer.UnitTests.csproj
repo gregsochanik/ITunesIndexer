@@ -55,8 +55,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlbumLibraryConvertorTest.cs" />
     <Compile Include="BatchedIndexerTests.cs" />
     <Compile Include="HttpPosterTests.cs" />
+    <Compile Include="IntExtensions.cs" />
     <Compile Include="LibraryBuilderTests.cs" />
     <Compile Include="LoggingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
